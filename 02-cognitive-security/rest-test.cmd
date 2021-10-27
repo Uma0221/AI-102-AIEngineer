@@ -1,1 +1,1 @@
-curl -X POST "<yourEndpoint>/text/analytics/v3.0/languages?" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: <yourKey>" --data-ascii "{'documents':[{'id':1,'text':'hello'}]}"
+curl -X POST "https://ai10205practice.cognitiveservices.azure.com/text/analytics/v3.0/languages?" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: 2114e62cfccc49688744975e03268215" --data-ascii "{'documents':[{'id':1,'text':'hello'}]}"
