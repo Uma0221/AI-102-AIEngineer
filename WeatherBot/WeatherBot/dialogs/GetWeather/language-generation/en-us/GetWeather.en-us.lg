@@ -1,0 +1,27 @@
+[import](common.lg)
+
+# TextInput_Prompt_zrih97()
+[Activity
+    Text = ${TextInput_Prompt_zrih97_text()}
+    SuggestedActions = Cancel
+]
+
+# TextInput_Prompt_zrih97_text()
+- Enter your city.
+# SendActivity_pyeLsX()
+[ThumbnailCard
+    title = Weather for ${dialog.city}
+    text = ${dialog.weather} (${dialog.temp}&deg;)
+    image = http://openweathermap.org/img/w/${dialog.icon}.png
+]
+
+# SendActivity_pyeLsX_text()
+- ```The weather in ${dialog.city} is ${dialog.weather} and the temperature is ${dialog.temp}&deg;.
+```
+# SendActivity_oi3ohy()
+[Activity
+    Text = ${SendActivity_oi3ohy_text()}
+]
+
+# SendActivity_oi3ohy_text()
+- I got an error: ${dialog.api_response.content.message}.

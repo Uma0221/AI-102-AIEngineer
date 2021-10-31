@@ -1,0 +1,94 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "OsBp7Z",
+    "name": "GetWeather",
+    "comment": "Get the current weather condition for the provided zip code"
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "Em1umw"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.TextInput",
+          "$designer": {
+            "id": "zrih97"
+          },
+          "disabled": false,
+          "maxTurnCount": 3,
+          "alwaysPrompt": false,
+          "allowInterruptions": true,
+          "unrecognizedPrompt": "",
+          "invalidPrompt": "",
+          "prompt": "${TextInput_Prompt_zrih97()}",
+          "property": "dialog.city",
+          "outputFormat": "=trim(this.value)"
+        },
+        {
+          "$kind": "Microsoft.HttpRequest",
+          "$designer": {
+            "id": "JnLuVa"
+          },
+          "resultProperty": "dialog.api_response",
+          "method": "GET",
+          "url": "http://api.openweathermap.org/data/2.5/weather?units=metric&q=${dialog.city}&appid=1ff112cc68fd29f4e0c42e421ccbf7ef"
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "YBSj35"
+          },
+          "condition": "=dialog.api_response.statusCode == 200",
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperties",
+              "$designer": {
+                "id": "3DG5sR"
+              },
+              "assignments": [
+                {
+                  "property": "dialog.weather",
+                  "value": "=dialog.api_response.content.weather[0].description"
+                },
+                {
+                  "value": "=round(dialog.api_response.content.main.temp)",
+                  "property": "dialog.temp"
+                },
+                {
+                  "property": "dialog.icon",
+                  "value": "=dialog.api_response.content.weather[0].icon"
+                }
+              ]
+            },
+            {
+              "$kind": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "pyeLsX"
+              },
+              "activity": "${SendActivity_pyeLsX()}"
+            }
+          ],
+          "elseActions": [
+            {
+              "$kind": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "oi3ohy"
+              },
+              "activity": "${SendActivity_oi3ohy()}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "generator": "GetWeather.lg",
+  "recognizer": "GetWeather.lu.qna",
+  "id": "GetWeather"
+}
