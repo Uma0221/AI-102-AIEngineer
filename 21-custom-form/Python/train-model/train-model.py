@@ -20,8 +20,12 @@ def main():
         form_recognizer_client = FormRecognizerClient(form_endpoint, AzureKeyCredential(form_key))
         form_training_client = FormTrainingClient(form_endpoint, AzureKeyCredential(form_key))
 
-        # Train model 
-        poller = form_training_client.begin_training(trainingDataUrl, use_training_labels=False)
+        # Train model (without labels)
+        # poller = form_training_client.begin_training(trainingDataUrl, use_training_labels=False)
+        # model = poller.result()
+
+        # Train model (with labels)
+        poller = form_training_client.begin_training(trainingDataUrl, use_training_labels=True)
         model = poller.result()
 
         print("Model ID: {}".format(model.model_id))
